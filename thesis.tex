@@ -1,4 +1,4 @@
-\documentclass[onesided,asymmetric]{tufte-book}
+\documentclass[onesided,letterpaper]{tufte-book}
 
 \hypersetup{colorlinks}% uncomment this line if you prefer colored hyperlinks (e.g., for onscreen viewing)
 
@@ -230,6 +230,7 @@ This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 % abstract
 \chapter{Abstract}
 %\begin{fullwidth}
+
 \\[-2pc]
 \textit{Scheduling Broadcasts in a Network of Timelines}\\
 \textit{Emaad Ahmed Manzoor}
@@ -295,14 +296,12 @@ A complete formulation of this information exchange process is nontrivial. Timel
 
 Hence, we focus on data-driven analyses of social activity traces to validate the existence of these behaviours and evaluate their significance. This provides both an understanding of the strength and nature of their influence on attention.
 
-\newpage
-
 In summary, we make the following contributions:
 
 \begin{enumerate}
-       \item In chapter \ref{ch:factors}}, we validate the existence of bursty circadian rhythms in microblogs by studying the distribution of time between consecutive tweets in Sina Weibo. The distribution reveals a pattern that is characteristic of bursty behaviour modulated by circadian rhythms.
+       \item In chapter \ref{ch:factors}, we validate the existence of bursty circadian rhythms in microblogs by studying the distribution of time between consecutive tweets in Sina Weibo. The distribution reveals a pattern that is characteristic of bursty behaviour modulated by circadian rhythms.
 
-       \item Also in chapter \ref{ch:factors}}, we define the concept of monotony aversion and study its impact on attention towards posts. Using data from Twitter, we show that ``closely spaced'' posts on timelines tend to be skipped over inattentively.
+       \item Also in chapter \ref{ch:factors}, we define the concept of monotony aversion and study its impact on attention towards posts. Using data from Twitter, we show that ``closely spaced'' posts on timelines tend to be skipped over inattentively.
 
        We also show that posts lower on the timeline can affect the attention attainable by ones above, suggesting that timelines are consumed in chunks rather than as sequential independent posts. This quantification has potentially deep-rooted connections to consumer psychology, recommendation diversity and variety-seeking behaviour, which we detail in chapter \ref{ch:related-work}.
 
@@ -349,19 +348,18 @@ Microblogs differ from traditional content-sharing mediums in their intrinsicall
 \textbf{Dataset.} We use the Weiboscope dataset\cite{fu2013assessing}, which contains over 13 million tweets posted by over 14 million users spanning the entire year 2012. All users in this dataset had over 1000 followers at the time of data collection, which limits the likelihood of accounts belonging to spammers. In comparison with the literature mentioned earlier in this section, this is a relatively large and temporally extensive dataset. Hence, we expect our findings to reasonably reflect general trends of human behaviour on microblogs.
 
 \begin{figure*}[t]
-    \subfloat{
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{12users_first2weeks}
-    \subfloat{
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{12users_last2weeks}
     \caption[Weibo activity in 2012.]{Weibo activity for 12 users with the largest number of tweets for the first (a) and last (b) 2 weeks of 2012.}
     \label{fig:weibo-activity}
+    \forcerectofloat
 \end{figure*}
 
 To gain some initial intuition, we visualize the tweeting activity of the top 12 (arbitrarily chosen) most active users for the first two weeks of 2012 (Fig. \ref{fig:weibo-activity}). We observe three broad activity patterns. A few users appear to be inactive, while a few tweet throughout the day. For the remaining majority, bursty behaviour is evident with sessions of activity preceding long intervals of inactivity. The bursts also appear to be periodic, with inactivity recurring during the same intervals of time every day.
 
 We now look for the characteristic patterns arising from the combination of bursty activity and circadian rhythms. Fig. \ref{fig:weibo-iet} depicts the distribution of the time $\tau$ between a user's consecutive tweets for all users in the dataset. The plot follows a power-law, $P(\tau) = \tau^{-1.33}$ (estimated using \textsc{powerlaw}\cite{alstott2014powerlaw}), eventually terminating in a skewed curve with a heavy tail. The periodic deviations from the power law curve are distinctly visible.
-
-\vfill
 
 \begin{figure}
   \includegraphics[width=\linewidth]{weibo_iet}
@@ -484,6 +482,7 @@ To construct our null models, we generate 1000 random permutations of tweets acr
 \end{table}
 
 \\[2.5pc]
+
 However, when comparing reaction probabilities between clusters of size 3, 4 and 5, we can no longer reject the null hypothesis. This may explain the noisy disruption in trends for $C > 3$ in Fig. \ref{fig:retweet-distribution}.
 
 Clusters with $C > 3$ give rise to less than 0.5\% of all tweets on the timelines in this dataset, so our hypothesis holds for the large majority that remains. A potential root cause of large clusters in our data is noise; tweets missing in the data could have broken large clusters into smaller ones had they been present.
@@ -565,6 +564,7 @@ The choice of models for follower and cluster survival may depend on the specifi
   \caption[Common survival models.]{Common survival models, defined for $x \geq 0$.}
   \label{table:survival-functions}
 \end{table}
+
 \\[2.5pc]
 
 We now introduce the concept of \textit{attention potential}. For a single post at depth $d$ in the timeline to be viewed by a follower, the follower must (i) consume the timeline until depth $d$, and (ii) not skip the cluster containing this post. Concretely, a post is given attention if the follower survives until that post and the cluster containing that post survives for that follower.
@@ -589,11 +589,11 @@ We can calculate the number of posts above the first post in a given cluster by 
 What remains is to derive the number of producer posts $x_{ij}$ and competitor posts $v_{ij}$ in the cluster from the producer schedule $\mathbf{X}$ and aggregate competitor schedules $\mathbf{C}$ respectively. The following relations hold:
 
 \begin{equation}
-  x_{ij} &= x_{((\sigma_j - i)\bmod{S})} \label{eq:nomenclature-x}
+  x_{ij} = x_{((\sigma_j - i)\bmod{S})} \label{eq:nomenclature-x}
 \end{equation}
 
 \begin{equation}
-  v_{ij} &= c_{((\sigma_j - i)\bmod{S})j} \label{eq:nomenclature-v}
+  v_{ij} = c_{((\sigma_j - i)\bmod{S})j} \label{eq:nomenclature-v}
 \end{equation}
 
 \marginnote[-5pc]{\textit{Relationships between post positions and schedules, derived from our observations on bursty circadian rhythms. $\bmod$ is the binary modulus operator that returns the remainder when its second argument is divided by the first.}}
@@ -660,15 +660,16 @@ We first select a producer whose scheduling options will be the focus of this ch
 We extract the 2-hop neighbourhood in the social graph starting from the producer and obtain a subgraph with 450 followers and 813 unique competitors (other users followed by the followers). We collect all the tweets in the dataset by these users, and set $S = 24$ to construct hourly schedules.
 
 To understand the collective behaviour of this user population, we observe the daily tweeting activity (Fig. \ref{fig:follower-competitor}) of the followers and competitors as a 2D histogram with hourly bins, mean-centered along each row. In both histograms, we see the most Twitter activity between 7AM and 5PM, a span of reduced activity between 6PM and 10PM and close to no activity between 11PM and 6AM.
+
 \\[2pc]
 
 \begin{figure*}
-    \subfloat{
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{follower_heatmap}
-    }
-    \subfloat{
+    %}
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{competitor_heatmap}
-    }
+    %}
     \caption[Hourly Twitter activity of followers and competitors.]{Hourly Twitter activity of the followers (a) and competitors (b) of the producer. Times are in Pacific Standard Time (PST). Notice the dip in competitor activity at lunchtime.}
     \label{fig:follower-competitor}
 \end{figure*}
@@ -698,20 +699,22 @@ Rather counter-intuitively, the \textsc{smart} strategy had largest attention po
 To gain further insight, we observe the attention potential histograms. mean-centered along rows, for each of these strategies in Fig. \ref{fig:attention-potential}.
 
 \begin{figure*}[t]
-    \subfloat{
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{attention_uniform}
-    }
-    \subfloat{
+    %}
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{attention_peak}
-    }\\
-    \subfloat{
+    %}
+    \\
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{attention_graveyard}
-    }
-    \subfloat{
+    %}
+    %\subfloat{
         \includegraphics[width=0.5\linewidth]{attention_intelligent}
-    }
+    %}
     \label{fig:attention-potential}
     \caption[Heatmaps of attention potential for the selected scheduling strategies.]{Heatmaps of the attention potential obtained when posts are scheduled (a) uniformly across all times, (b) weighted towards times of peak activity, (c) weighted towards late night and early morning hours, and (d) weighted towards lunchtime, late night and early morning hours.}
+    \forceversofloat
 \end{figure*}
 
 Some interesting patterns emerge. Though tweets were broadcast throughout the day in the \textsc{uniform} strategy, they had the most attention potential only during the late hours of the night. Similarly, the \textsc{peak} strategy had the most attention potential in the late night and early morning hours, though most posts were published during the hours of peak follower activity. Competition appears to be a dominating influence on the attention attainable by this producer.
@@ -755,7 +758,7 @@ Additionally, there is no work quantifying the relation between monotony aversio
 
 \backmatter
 
-\chapter{Appendix: Submitted and Accepted Publications}
+\chapter{Appendix: Publications}
 
 \underline{Emaad Ahmed Manzoor}, Haewoon Kwak and Panos Kalnis. Scheduling Broadcasts in a Network of Timelines. \textit{KDD 2015 (awaiting final decision)}.
 
